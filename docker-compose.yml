@@ -1,0 +1,65 @@
+version: '3.5'
+networks: 
+    php-dev:
+        name: php-dev
+        driver: bridge
+
+services:
+
+    app:
+        build: .
+        image: likesistemas/php-dev:dev
+        container_name: php-dev_app
+        command: ./vendor/bin/phinx seed:run
+        environment:
+            - PHP_NAME=lemp
+            - PHP_PM=dynamic
+            - PHP_PM_MAX_CHILDREN=2
+            - PHP_PM_START_SERVERS=1
+            - PHP_PM_MIN_SPARE_SERVERS=1
+            - PHP_PM_MAX_SPARE_SERVERS=1
+            - PHP_PM_MAX_REQUESTS=500
+            - DB_HOST=mysql
+            - COMPOSER_INSTALL=true
+            - DB_MIGRATE=true
+        env_file:
+            - ./docker-compose.env
+        volumes:
+            - ./www/:/var/www/public/
+        networks:
+            - php-dev
+        links:
+            - mysql
+        depends_on:
+            - mysql
+
+    mysql:
+        image: mysql:5.5
+        command: --innodb-use-native-aio=0
+        volumes:
+            - php-dev-mysql-data:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+            - MYSQL_DATABASE=php
+        networks:
+            - php-dev
+
+    nginx:
+        image: likesistemas/nginx:latest
+        container_name: php-dev_nginx
+        environment:
+            - HOST_PHP=app
+            - PORTA_PHP=9000
+        ports:
+            - 80:80
+        volumes:
+            - ./www/:/var/www/public/
+        links:
+            - app
+        depends_on:
+            - app
+        networks:
+            - php-dev
+
+volumes:
+    php-dev-mysql-data:
