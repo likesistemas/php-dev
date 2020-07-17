@@ -61,5 +61,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: likesistemas/php-dev
-          dockerfile: Dockerfile-56
+          dockerfile: Dockerfile56
           tags: 5.6,56
