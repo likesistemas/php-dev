@@ -1,14 +1,14 @@
 version: '3.5'
 networks: 
     php-dev:
-        name: php-dev
+        name: php-dev-56
         driver: bridge
 
 services:
 
     app:
         build: .
-        image: likesistemas/php-dev:dev
+        image: likesistemas/php-dev:56-dev
         container_name: php-dev_app
         command: composer seed
         environment:
@@ -25,7 +25,7 @@ services:
         env_file:
             - ./docker-compose.env
         volumes:
-            - ./www/:/var/www/
+            - ./www56/:/var/www/
         networks:
             - php-dev
         links:
@@ -37,7 +37,7 @@ services:
         image: mysql:5.5
         command: --innodb-use-native-aio=0
         volumes:
-            - php-dev-mysql-data:/var/lib/mysql
+            - php56-dev-mysql-data:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=123456
             - MYSQL_DATABASE=php
@@ -54,7 +54,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./www/:/var/www/
+            - ./www56/:/var/www/
         links:
             - app
         depends_on:
@@ -63,4 +63,4 @@ services:
             - php-dev
 
 volumes:
-    php-dev-mysql-data:
+    php56-dev-mysql-data:
