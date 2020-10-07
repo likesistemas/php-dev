@@ -7,7 +7,9 @@ networks:
 services:
 
     app:
-        build: .
+        build:
+            context: .
+            dockerfile: Dockerfile-56
         image: likesistemas/php-dev:56-dev
         container_name: php-dev_app
         environment:

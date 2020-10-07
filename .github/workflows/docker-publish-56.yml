@@ -28,9 +28,9 @@ jobs:
 
       - name: Run tests
         run: |
-          docker-compose up --build -d
+          docker-compose -f docker-compose-56.yml up --build -d
 
-          docker run -t --network php-dev jwilder/dockerize \
+          docker run -t --network php-dev-56 jwilder/dockerize \
             -wait http://php-dev_nginx/ \
             -timeout 120s
 
@@ -41,7 +41,7 @@ jobs:
           CONTENT=$(curl -s "http://127.0.0.1/");
           echo "CHAMADA HTTP: ${CONTENT}";
 
-          if [ "${CONTENT}" != "Like Sistemas" ]; then
+          if [ "${CONTENT}" != "Like Sistemas|56" ]; then
             echo "Chamada HTTP retornou errado: ${CONTENT}"
             exit 1;
           fi
