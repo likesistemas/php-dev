@@ -10,7 +10,6 @@ services:
         build: .
         image: likesistemas/php-dev:56-dev
         container_name: php-dev_app
-        command: composer seed
         environment:
             - PHP_NAME=lemp
             - PHP_PM=dynamic
@@ -20,8 +19,6 @@ services:
             - PHP_PM_MAX_SPARE_SERVERS=1
             - PHP_PM_MAX_REQUESTS=500
             - DB_HOST=mysql
-            - COMPOSER_INSTALL=true
-            - DB_MIGRATE=true
         env_file:
             - ./docker-compose.env
         volumes:

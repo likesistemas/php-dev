@@ -7,6 +7,8 @@ $conn = new PDO('mysql:host=mysql;dbname=php', 'root', '123456');
 $stmt = $conn->prepare('SELECT nome FROM empresa LIMIT 0,1');
 $stmt->execute();
 
-$rec = $stmt->fetch();
+$versaoPhp = explode('.', phpversion());
 
-echo $rec['nome'];
+$rec = $stmt->fetch();
+echo $rec['nome'] . "|" . 
+     $versaoPhp[0].$versaoPhp[1];
