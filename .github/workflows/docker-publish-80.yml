@@ -1,4 +1,4 @@
-name: Docker
+name: PHP 8.0
 
 on:
   push:
@@ -28,11 +28,11 @@ jobs:
 
       - name: Run tests
         run: |
-          docker-compose up --build -d
+          docker-compose -f docker-compose-80.yml up --build -d
 
-          docker run -t --network php-dev jwilder/dockerize \
+          echo $(docker run -t --network php-dev jwilder/dockerize \
             -wait http://php-dev_nginx/ \
-            -timeout 120s
+            -timeout 60s)
 
           docker ps -a
 
@@ -41,7 +41,7 @@ jobs:
           CONTENT=$(curl -s "http://127.0.0.1/");
           echo "CHAMADA HTTP: ${CONTENT}";
 
-          if [ "${CONTENT}" != "Like Sistemas|73" ]; then
+          if [ "${CONTENT}" != "Like Sistemas|80" ]; then
             echo "Chamada HTTP retornou errado: ${CONTENT}"
             exit 1;
           fi
@@ -83,13 +83,13 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          build-args: |
+            PHP_VERSION=80
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: |
-            likesistemas/php-dev:latest
-            likesistemas/php-dev:73
-            likesistemas/php-dev:7.3
-            ghcr.io/likesistemas/php-dev:latest
-            ghcr.io/likesistemas/php-dev:73
-            ghcr.io/likesistemas/php-dev:7.3
+            likesistemas/php-dev:80
+            likesistemas/php-dev:8.0
+            ghcr.io/likesistemas/php-dev:80
+            ghcr.io/likesistemas/php-dev:8.0

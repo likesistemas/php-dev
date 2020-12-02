@@ -1,7 +1,7 @@
 version: '3.5'
 networks: 
     php-dev:
-        name: php-dev-56
+        name: php-dev
         driver: bridge
 
 services:
@@ -11,8 +11,8 @@ services:
             context: .
             dockerfile: Dockerfile
             args: 
-                - PHP_VERSION=56
-        image: likesistemas/php-dev:56-dev
+                - PHP_VERSION=80
+        image: likesistemas/php-dev:80-dev
         container_name: php-dev_app
         environment:
             - PHP_NAME=lemp
@@ -26,7 +26,7 @@ services:
         env_file:
             - ./docker-compose.env
         volumes:
-            - ./www56/:/var/www/
+            - ./www80/:/var/www/
         networks:
             - php-dev
         links:
@@ -38,7 +38,7 @@ services:
         image: mysql:5.5
         command: --innodb-use-native-aio=0
         volumes:
-            - php56-dev-mysql-data:/var/lib/mysql
+            - php-dev-mysql-data:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=123456
             - MYSQL_DATABASE=php
@@ -55,7 +55,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./www56/:/var/www/
+            - ./www80/:/var/www/
         links:
             - app
         depends_on:
@@ -64,4 +64,4 @@ services:
             - php-dev
 
 volumes:
-    php56-dev-mysql-data:
+    php-dev-mysql-data:

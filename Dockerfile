@@ -1,4 +1,5 @@
-FROM likesistemas/php:latest
+ARG PHP_VERSION=latest
+FROM likesistemas/php:${PHP_VERSION}
 ENV SHOW_ERRORS=true
 ENV COMPOSER_INSTALL=true
 ENV DB_MIGRATE=true
