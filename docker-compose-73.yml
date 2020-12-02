@@ -7,8 +7,12 @@ networks:
 services:
 
     app:
-        build: .
-        image: likesistemas/php-dev:dev
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args: 
+                - PHP_VERSION=73
+        image: likesistemas/php-dev:73-dev
         container_name: php-dev_app
         environment:
             - PHP_NAME=lemp
@@ -22,7 +26,7 @@ services:
         env_file:
             - ./docker-compose.env
         volumes:
-            - ./www/:/var/www/
+            - ./www73/:/var/www/
         networks:
             - php-dev
         links:
@@ -51,7 +55,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./www/:/var/www/
+            - ./www73/:/var/www/
         links:
             - app
         depends_on:
