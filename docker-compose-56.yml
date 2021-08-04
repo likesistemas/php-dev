@@ -9,9 +9,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile
-            args: 
-                - PHP_VERSION=56
+            dockerfile: Dockerfile-56
         image: likesistemas/php-dev:56-dev
         container_name: php-dev_app
         environment:

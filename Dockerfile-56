@@ -1,5 +1,4 @@
-ARG PHP_VERSION=latest
-FROM likesistemas/php:${PHP_VERSION}
+FROM likesistemas/php:56
 ENV SHOW_ERRORS=true
 ENV COMPOSER_INSTALL=true
 ENV DB_MIGRATE=true
@@ -7,9 +6,6 @@ ENV DB_SEED=true
 ENV COMPOSER_INSTALL_PARAMS=
 RUN install-composer
 RUN install-xdebug
-
-# Install pcov
-RUN pecl install pcov
 
 # Install Oh My Zsh
 RUN apt-get update && apt-get install -y procps vim
@@ -27,5 +23,4 @@ ENV SHELL /bin/zsh
 # Install PHP CS Fixer
 ENV PATH="$PATH:/root/.composer/vendor/bin"
 RUN composer global require friendsofphp/php-cs-fixer && php-cs-fixer
-RUN composer global require phpstan/phpstan && phpstan -V
-RUN composer global require "squizlabs/php_codesniffer=*" && phpcs -h && phpcbf -h
+RUN composer global require "squizlabs/php_codesniffer=*" && phpcs && phpcbf
