@@ -29,6 +29,7 @@ services:
             - CODECOMMIT_PASSWORD=$CODECOMMIT_PASSWORD
         volumes:
             - ./www73/:/var/www/
+            - ./:/src/
         networks:
             - php-dev
         links:
