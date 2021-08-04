@@ -23,4 +23,4 @@ ENV SHELL /bin/zsh
 # Install PHP CS Fixer
 ENV PATH="$PATH:/root/.composer/vendor/bin"
 RUN composer global require friendsofphp/php-cs-fixer && php-cs-fixer
-RUN composer global require "squizlabs/php_codesniffer=*" && phpcs && phpcbf
+RUN composer global require "squizlabs/php_codesniffer=*" && phpcs -h && phpcbf -h
