@@ -8,6 +8,8 @@ ENV COMPOSER_INSTALL_PARAMS=
 RUN install-composer
 RUN install-xdebug
 
+RUN echo "memory_limit=-1" > $PHP_GLOBAL_CONFIG_PATH/99_memory-limit.ini
+
 # Install pcov
 RUN pecl install pcov
 
