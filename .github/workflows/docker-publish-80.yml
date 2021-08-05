@@ -38,6 +38,9 @@ jobs:
 
           docker logs php-dev_app
 
+          docker-compose -f docker-compose-80.yml exec -T -w /var/www/ app phpstan
+          docker-compose -f docker-compose-80.yml exec -T -w /var/www/ app php-cs-fixer fix
+
           CONTENT=$(curl -s "http://127.0.0.1/");
           echo "CHAMADA HTTP: ${CONTENT}";
 

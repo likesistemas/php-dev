@@ -10,5 +10,5 @@ $stmt->execute();
 $versaoPhp = explode('.', phpversion());
 
 $rec = $stmt->fetch();
-echo $rec['nome'] . "|" . 
-     $versaoPhp[0].$versaoPhp[1];
+echo $rec['nome'] . '|' .
+	 $versaoPhp[0].$versaoPhp[1];
