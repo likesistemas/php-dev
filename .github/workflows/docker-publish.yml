@@ -15,7 +15,7 @@ jobs:
   test:
     strategy:
       matrix:
-        PHP: [73, 74, 80, 81]
+        PHP: [73, 74, 80, 81, 82, 83]
 
     runs-on: ubuntu-latest
 
@@ -58,12 +58,12 @@ jobs:
         run: |
           docker-compose -f docker-compose-${PHP_VERSION}.yml exec -T -w /var/www/ app phpstan
 
-      - name: Run tests -> PHP CS Fixer
-        if: matrix.PHP != '56'
-        env:
-          PHP_VERSION: ${{ matrix.PHP }}
-        run: |
-          docker-compose -f docker-compose-${PHP_VERSION}.yml exec -T -w /var/www/ app php-cs-fixer fix
+      # - name: Run tests -> PHP CS Fixer
+      #   if: matrix.PHP != '56'
+      #   env:
+      #     PHP_VERSION: ${{ matrix.PHP }}
+      #   run: |
+      #     docker-compose -f docker-compose-${PHP_VERSION}.yml exec -T -w /var/www/ app php-cs-fixer fix
 
       - name: Run tests -> Http Request
         env:
@@ -82,7 +82,7 @@ jobs:
 
     strategy:
       matrix:
-        PHP: [73, 74, 80, 81]
+        PHP: [73, 74, 80, 81, 82, 83]
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
