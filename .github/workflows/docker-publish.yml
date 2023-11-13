@@ -63,7 +63,7 @@ jobs:
         env:
           PHP_VERSION: ${{ matrix.PHP }}
         run: |
-          docker-compose -f docker-compose-${PHP_VERSION}.yml exec -T -w /var/www/ app php-cs-fixer fix
+          docker-compose -f docker-compose-${PHP_VERSION}.yml exec -T -w /var/www/ app PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix
 
       - name: Run tests -> Http Request
         env:
