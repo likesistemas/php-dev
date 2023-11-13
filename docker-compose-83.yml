@@ -1,0 +1,69 @@
+version: '3.5'
+networks: 
+    php-dev:
+        name: php-dev
+        driver: bridge
+
+services:
+
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args: 
+                - PHP_VERSION=83
+        image: likesistemas/php-dev:83-dev
+        container_name: php-dev_app
+        environment:
+            - PHP_NAME=lemp
+            - PHP_PM=dynamic
+            - PHP_PM_MAX_CHILDREN=2
+            - PHP_PM_START_SERVERS=1
+            - PHP_PM_MIN_SPARE_SERVERS=1
+            - PHP_PM_MAX_SPARE_SERVERS=1
+            - PHP_PM_MAX_REQUESTS=500
+            - DB_HOST=mysql
+            - CODECOMMIT_HOST=${CODECOMMIT_HOST:-git-codecommit.us-east-1.amazonaws.com}
+            - GITHUB_TOKEN=$GITHUB_TOKEN
+            - CODECOMMIT_USER=$CODECOMMIT_USER
+            - CODECOMMIT_PASSWORD=$CODECOMMIT_PASSWORD
+        volumes:
+            - ./www80/:/var/www/
+        networks:
+            - php-dev
+        links:
+            - mysql
+        depends_on:
+            - mysql
+
+    mysql:
+        image: mysql:5.5
+        command: --innodb-use-native-aio=0
+        volumes:
+            - php-dev-mysql-data:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+            - MYSQL_DATABASE=php
+        networks:
+            - php-dev
+
+    nginx:
+        image: likesistemas/nginx:latest
+        container_name: php-dev_nginx
+        environment:
+            - HOST_PHP=app
+            - PORTA_PHP=9000
+            - INDEX_FILE=index.php
+        ports:
+            - 80:80
+        volumes:
+            - ./www80/:/var/www/
+        links:
+            - app
+        depends_on:
+            - app
+        networks:
+            - php-dev
+
+volumes:
+    php-dev-mysql-data:
