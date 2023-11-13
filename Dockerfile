@@ -26,8 +26,9 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 
 ENV SHELL /bin/zsh
 
-# Install PHP CS Fixer
 ENV PATH="$PATH:/root/.composer/vendor/bin"
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 RUN composer global require friendsofphp/php-cs-fixer && php-cs-fixer --version
 RUN composer global require phpstan/phpstan && phpstan -V
 RUN composer global require "squizlabs/php_codesniffer=*" && phpcs -h && phpcbf -h
