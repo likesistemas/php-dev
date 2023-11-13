@@ -40,3 +40,5 @@ RUN PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer --version && \
     phpcs -h && phpcbf -h \
     rector --version \
     ecs --version
+
+RUN git config --global --add safe.directory /var/www/
