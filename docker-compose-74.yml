@@ -28,7 +28,7 @@ services:
             - CODECOMMIT_USER=$CODECOMMIT_USER
             - CODECOMMIT_PASSWORD=$CODECOMMIT_PASSWORD
         volumes:
-            - ./www73/:/var/www/
+            - ./www74/:/var/www/
         networks:
             - php-dev
         links:
@@ -57,7 +57,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./www73/:/var/www/
+            - ./www74/:/var/www/
         links:
             - app
         depends_on:
