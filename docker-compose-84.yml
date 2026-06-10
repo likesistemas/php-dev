@@ -1,4 +1,3 @@
-version: '3.5'
 networks: 
     php-dev:
         name: php-dev
@@ -11,8 +10,8 @@ services:
             context: .
             dockerfile: Dockerfile
             args: 
-                - PHP_VERSION=73
-        image: likesistemas/php-dev:73-dev
+                - PHP_VERSION=84
+        image: likesistemas/php-dev:84-dev
         container_name: php-dev_app
         environment:
             - PHP_NAME=lemp
@@ -28,8 +27,7 @@ services:
             - CODECOMMIT_USER=$CODECOMMIT_USER
             - CODECOMMIT_PASSWORD=$CODECOMMIT_PASSWORD
         volumes:
-            - ./www73/:/var/www/
-            - ./:/src/
+            - ./www80/:/var/www/
         networks:
             - php-dev
         links:
@@ -58,7 +56,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./www73/:/var/www/
+            - ./www80/:/var/www/
         links:
             - app
         depends_on:

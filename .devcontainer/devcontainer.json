@@ -1,7 +1,7 @@
 {
 	"dockerComposeFile": [
-		"../docker-compose-73.yml"
+		"../docker-compose-83.yml"
 	],
 	"service": "app",
-	"workspaceFolder": "/src/",
+	"workspaceFolder": "/src/"
 }
