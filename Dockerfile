@@ -14,7 +14,7 @@ RUN echo "memory_limit=-1" > $PHP_GLOBAL_CONFIG_PATH/99_memory-limit.ini
 RUN pecl install pcov
 
 # Install Oh My Zsh
-RUN apt-get update && apt-get install -y procps vim
+RUN apt-get update && apt-get install -y procps vim wget
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.1/zsh-in-docker.sh)" -- \
     -t https://github.com/denysdovhan/spaceship-prompt \
     -a 'SPACESHIP_PROMPT_ADD_NEWLINE="false"' \

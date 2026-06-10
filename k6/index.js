@@ -5,7 +5,7 @@ import { Counter } from 'k6/metrics';
 export const requests = new Counter('http_reqs');
 
 export const urlbase = __ENV.URL != null ? __ENV.URL : "http://127.0.0.1/";
-export const phpVersion = __ENV.PHP_VERSION != null ? __ENV.PHP_VERSION : "73";
+export const phpVersion = __ENV.PHP_VERSION != null ? __ENV.PHP_VERSION : "83";
 
 export const options = {
   thresholds: {
